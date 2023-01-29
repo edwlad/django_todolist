@@ -16,7 +16,6 @@ class MyList(models.Model):
         default=datetime.now,
         help_text="Дата создания задачи",
         verbose_name="Создано",
-        db_index=True,
     )
     date_end = models.DateTimeField(
         default=None,
@@ -24,7 +23,6 @@ class MyList(models.Model):
         verbose_name="Завершено",
         blank=True,
         null=True,
-        db_index=True,
     )
     chk_end = models.BooleanField(
         default=False,

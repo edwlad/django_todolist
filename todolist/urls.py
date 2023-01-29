@@ -15,9 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from main.views import empty
+from main.views import error, empty, MainIndex
+from django.http.response import HttpResponseRedirect
+
+# from django.views.generic import TemplateView
+
 
 urlpatterns = [
-    path("admin/", admin.site.urls),
-    re_path(r"^$|.*", empty),
+    path(r"", MainIndex.as_view()),
+    path(r"empty/", empty),
+    path(r"admin/", admin.site.urls),
+    re_path(r"^admin.*", lambda _: HttpResponseRedirect("/admin/")),
+    re_path(r".+", error, kwargs={"title": "Не найдено", "status": 404}),
 ]
