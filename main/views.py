@@ -63,23 +63,36 @@ def index(req: HttpRequest, *args, **kwargs):
 
 class MainIndex(ListView):
     template_name = "index.html"
-    # queryset = MyList
     model = MyList
     # paginate_by = 2
     context_object_name = "context"
 
-    # def get_context_data(self, **kwargs):
-    #     # Call the base implementation first to get a context
-    #     context = super().get_context_data(**kwargs)
-    #     # Add in a QuerySet of all the books
-    #     # context["len"] = Book.objects.all()
-    #     return context
+    def get_queryset(self):
+        filt = self.request.GET.get("f", "off")
+        queryset = self.model.objects.all()
+        if filt == "on":
+            return queryset.filter(chk_end=True)
+        elif filt == "all":
+            return queryset
+        return queryset.filter(chk_end=False)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["buttons"] = ("add", "items")
+        context["is_index"] = True
+        return context
 
 
 class MainDetail(DetailView):
     template_name = "detail.html"
     context_object_name = "context"
     model = MyList
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["buttons"] = ("back", "add", "edit", "delete", "index")
+        context["is_detail"] = True
+        return context
 
 
 class MainEdit(UpdateView):
@@ -91,6 +104,12 @@ class MainEdit(UpdateView):
     def get_success_url(self):
         return reverse("detail", kwargs={"pk": self.object.id})
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["buttons"] = ("back", "add", "detail", "delete", "index")
+        context["is_edit"] = True
+        return context
+
 
 class MainAdd(CreateView):
     template_name = "add.html"
@@ -101,12 +120,23 @@ class MainAdd(CreateView):
     def get_success_url(self):
         return reverse("detail", kwargs={"pk": self.object.id})
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["buttons"] = ("back", "index")
+        context["is_add"] = True
+        return context
+
 
 class MainDelete(DeleteView):
     template_name = "delete.html"
-    # fields = ("desc",)
     context_object_name = "context"
     model = MyList
 
     def get_success_url(self):
         return reverse_lazy("main")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["buttons"] = ("back", "add", "edit", "detail", "index")
+        context["is_delete"] = True
+        return context

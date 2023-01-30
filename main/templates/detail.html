@@ -1,8 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Просмотр задачи{% endblock title %}
+{% block header %}Просмотр задачи №{{ context.id }}{% endblock header %}
+
+{% block content %}
 <style>
-    .mr {margin: 0 20;}
     .bold {font-weight: bold;}
-    .chk_off {background-color: pink;}
-    .chk_on {background-color: lightgreen;}
 </style>
 
 <table border=1 cellspacing=1 width=100%>
@@ -13,27 +15,23 @@
         </tr>
     </thead>
     <tr>
-        <td>Описание</td>
+        <td>Задача</td>
         <td>{{ context.desc }}</td>
     </tr>
     <tr>
-        <td>Записано</td>
+        <td>Записана</td>
         <td class="bold">{{ context.date_add|date:"d.m.Y H:i" }}</td>
     </tr>
     <tr>
-        <td>Завершено</td>
+        <td>Завершена</td>
         {% if context.chk_end %}
-            <td class="bold chk_on">{{ context.date_end|date:"d.m.Y H:i" }}</td>
+            <td class="bold">{{ context.date_end|date:"d.m.Y H:i" }}</td>
         {% else %}
-            <td class="bold chk_off">Нет</td>
+            <td class="bold">Нет</td>
         {% endif %}
     </tr>
 </table>
 
-<br>
-<a href={% url 'edit' context.id %} class="mr"><button>Редактировать</button></a>
-{% if delete %}
-    <a href={% url 'detail' context.id %} class="mr"><button>Просмотр</button></a>
-{% else %}
-    <a href={% url 'delete' context.id %} class="mr"><button>Удалить</button></a>
-{% endif %}
+{% include "buttons.html" %}
+
+{% endblock content %}

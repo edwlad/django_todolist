@@ -10,7 +10,7 @@ class MyList(models.Model):
     desc = models.CharField(
         max_length=120,
         help_text="Описание задачи",
-        verbose_name="Описание",
+        verbose_name="Задача",
     )
     date_add = models.DateTimeField(
         default=datetime.now,

@@ -30,7 +30,7 @@ from django.http.response import HttpResponseRedirect
 
 
 urlpatterns = [
-    path(r"", MainIndex.as_view(), name="main"),
+    path(r"", MainIndex.as_view(), name="index"),
     path(r"detail/<int:pk>/", MainDetail.as_view(), name="detail"),
     path(r"edit/<int:pk>/", MainEdit.as_view(), name="edit"),
     path(r"delete/<int:pk>/", MainDelete.as_view(), name="delete"),
