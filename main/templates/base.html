@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru, en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Base page{% endblock title %}</title>
+</head>
+
+<body>
+    <h1>{% block header %}Base page{% endblock header %}</h1>
+    <nav><a href="/">Главная</a> | <a href="/admin/">Администрирование</a></nav>
+    <article id="content">{% block content %}{% endblock content %}</article>
+</body>
+
+</html>

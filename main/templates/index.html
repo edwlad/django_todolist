@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}Список задач{% endblock title %}
+{% block header %}Список задач{% endblock header %}
+{% block content %}
+<ul>
+    {% for item in context %}
+    <li>{{ item.desc }}</li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}
