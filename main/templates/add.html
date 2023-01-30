@@ -1,0 +1,9 @@
+<style>
+    [name='desc'] {width: 100%; font-size: 1.1em;}
+    [name='desc'] ~ .helptext {font-size: 0.85em;}
+    .bold {font-weight: bold;}
+</style>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Создать">
+</form>

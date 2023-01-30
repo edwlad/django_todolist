@@ -15,14 +15,26 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, re_path
-from main.views import error, empty, MainIndex
+from main.views import (
+    error,
+    empty,
+    MainIndex,
+    MainDetail,
+    MainEdit,
+    MainAdd,
+    MainDelete,
+)
 from django.http.response import HttpResponseRedirect
 
 # from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    path(r"", MainIndex.as_view()),
+    path(r"", MainIndex.as_view(), name="main"),
+    path(r"detail/<int:pk>/", MainDetail.as_view(), name="detail"),
+    path(r"edit/<int:pk>/", MainEdit.as_view(), name="edit"),
+    path(r"delete/<int:pk>/", MainDelete.as_view(), name="delete"),
+    path(r"add/", MainAdd.as_view(), name="add"),
     path(r"empty/", empty),
     path(r"admin/", admin.site.urls),
     re_path(r"^admin.*", lambda _: HttpResponseRedirect("/admin/")),

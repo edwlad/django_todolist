@@ -1,0 +1,20 @@
+<style>
+    [name='desc'] {width: 100%; font-size: 1.1em;}
+    [name='desc'] ~ .helptext {font-size: 0.85em;}
+    .bold {font-weight: bold;}
+    .chk_off {background-color: pink; display: inline-block;}
+    .chk_on {background-color: lightgreen; display: inline-block;}
+</style>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Сохранить">
+</form>
+<p>
+    Записано: <span class="bold">{{ context.date_add|date:"d.m.Y H:i" }}</span>
+    Завершено: 
+    {% if context.chk_end %}
+        <span class="bold chk_on">&nbsp;{{ context.date_end|date:"d.m.Y H:i" }}&nbsp;</span>
+    {% else %}
+        <span class="bold chk_off">&nbsp;Нет&nbsp;</span>
+    {% endif %}
+</p>

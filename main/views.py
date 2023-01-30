@@ -1,7 +1,14 @@
 from django.shortcuts import render  # noqa
 from django.http.response import HttpResponse
 from django.http.request import HttpRequest
-from django.views.generic import ListView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    UpdateView,
+    CreateView,
+    DeleteView,
+)
+from django.urls import reverse, reverse_lazy
 from .models import MyList
 from datetime import datetime
 
@@ -61,9 +68,45 @@ class MainIndex(ListView):
     # paginate_by = 2
     context_object_name = "context"
 
-    def get_context_data(self, **kwargs):
-        # Call the base implementation first to get a context
-        context = super().get_context_data(**kwargs)
-        # Add in a QuerySet of all the books
-        # context["len"] = Book.objects.all()
-        return context
+    # def get_context_data(self, **kwargs):
+    #     # Call the base implementation first to get a context
+    #     context = super().get_context_data(**kwargs)
+    #     # Add in a QuerySet of all the books
+    #     # context["len"] = Book.objects.all()
+    #     return context
+
+
+class MainDetail(DetailView):
+    template_name = "detail.html"
+    context_object_name = "context"
+    model = MyList
+
+
+class MainEdit(UpdateView):
+    template_name = "edit.html"
+    fields = ("desc", "chk_end")
+    context_object_name = "context"
+    model = MyList
+
+    def get_success_url(self):
+        return reverse("detail", kwargs={"pk": self.object.id})
+
+
+class MainAdd(CreateView):
+    template_name = "add.html"
+    fields = ("desc",)
+    context_object_name = "context"
+    model = MyList
+
+    def get_success_url(self):
+        return reverse("detail", kwargs={"pk": self.object.id})
+
+
+class MainDelete(DeleteView):
+    template_name = "delete.html"
+    # fields = ("desc",)
+    context_object_name = "context"
+    model = MyList
+
+    def get_success_url(self):
+        return reverse_lazy("main")

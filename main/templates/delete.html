@@ -1,0 +1,7 @@
+{% include "detail.html" with delete=True %}
+
+<form method="post">{% csrf_token %}
+    <p>Удалить запись?
+    {{ form }}
+    <input type="submit" value="Да, удалить" class="chk_off"></p>
+</form>
