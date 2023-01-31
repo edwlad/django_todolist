@@ -30,13 +30,13 @@ from django.http.response import HttpResponseRedirect
 
 
 urlpatterns = [
-    path(r"", MainIndex.as_view(), name="index"),
-    path(r"detail/<int:pk>/", MainDetail.as_view(), name="detail"),
-    path(r"edit/<int:pk>/", MainEdit.as_view(), name="edit"),
-    path(r"delete/<int:pk>/", MainDelete.as_view(), name="delete"),
-    path(r"add/", MainAdd.as_view(), name="add"),
-    path(r"empty/", empty),
-    path(r"admin/", admin.site.urls),
+    path("", MainIndex.as_view(), name="index"),
+    path("detail/<int:pk>/", MainDetail.as_view(), name="detail"),
+    path("edit/<int:pk>/", MainEdit.as_view(), name="edit"),
+    path("delete/<int:pk>/", MainDelete.as_view(), name="delete"),
+    path("add/", MainAdd.as_view(), name="add"),
+    path("empty/", empty),
+    path("admin/", admin.site.urls),
     re_path(r"^admin.*", lambda _: HttpResponseRedirect("/admin/")),
     re_path(r".+", error, kwargs={"title": "Не найдено", "status": 404}),
 ]

@@ -16,7 +16,7 @@ from datetime import datetime
 def error(req: HttpRequest, *args, **kwargs):
     status = int(kwargs.get("status", 400))
     title = kwargs.get("title", "Ошибка")
-    content = kwargs.get("content", f"Код ошибки: {status}")
+    content = kwargs.get("content", f"<p>Код ошибки: {status}</p>")
     return render(
         req,
         "error.html",
@@ -24,6 +24,8 @@ def error(req: HttpRequest, *args, **kwargs):
         context={
             "title": title,
             "content": content,
+            "buttons": ("back", "index"),
+            "is_error": True,
         },
     )
 
@@ -44,21 +46,6 @@ def empty(req: HttpRequest):
         """
     )
     return out
-
-
-def index(req: HttpRequest, *args, **kwargs):
-    status = int(kwargs.get("status", 200))
-    title = kwargs.get("title", "Список задач.")
-    content = kwargs.get("content", "")
-    return render(
-        req,
-        "index.html",
-        status=status,
-        context={
-            "title": title,
-            "content": content,
-        },
-    )
 
 
 class MainIndex(ListView):
