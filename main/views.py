@@ -120,7 +120,7 @@ class MainDelete(DeleteView):
     model = MyList
 
     def get_success_url(self):
-        return reverse_lazy("main")
+        return reverse_lazy("index")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
