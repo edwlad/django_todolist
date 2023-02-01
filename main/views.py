@@ -118,9 +118,10 @@ class MainDelete(DeleteView):
     template_name = "delete.html"
     context_object_name = "context"
     model = MyList
+    success_url = reverse_lazy("index")
 
-    def get_success_url(self):
-        return reverse_lazy("index")
+    # def get_success_url(self):
+    #     return reverse("index")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
