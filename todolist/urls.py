@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
 from main.views import (
     error,
     empty,
@@ -35,6 +35,8 @@ urlpatterns = [
     path("edit/<int:pk>/", MainEdit.as_view(), name="edit"),
     path("delete/<int:pk>/", MainDelete.as_view(), name="delete"),
     path("add/", MainAdd.as_view(), name="add"),
+    path("api/", include("api.urls"), name="api"),
+    path("api-auth/", include("rest_framework.urls")),
     path("empty/", empty),
     path("admin/", admin.site.urls),
     re_path(r"^admin.*", lambda _: HttpResponseRedirect("/admin/")),
