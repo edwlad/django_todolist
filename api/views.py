@@ -6,13 +6,14 @@ from django.db.models import QuerySet
 
 
 class MyListApi(viewsets.ModelViewSet):
-    queryset = MyList.objects.all().order_by("-date_add")
+    # queryset = MyList.objects.all().order_by("-date_add")
     serializer_class = MyListSerializer
     # permission_classes = [permissions.DjangoModelPermissionsOrAnonReadOnly]
     # filterset_class =  MyListFilterSet
 
     def get_queryset(self):
-        qs: QuerySet = super().get_queryset()
+        qs: QuerySet = MyList.objects.all().order_by("-date_add")
+        # qs: QuerySet = super().get_queryset()
         par = self.request.query_params
 
         if temp := par.get("title", ""):
